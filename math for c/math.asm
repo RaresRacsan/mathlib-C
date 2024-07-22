@@ -1,7 +1,5 @@
 section .text
-    global add_numbers
-    global sub_numbers
-    global mul_numbers
+    global add_numbers, sub_numbers, mul_numbers, div_numbers
 
 ; In 64-bit Windows (x64), the first four integer or pointer parameters are passed in the following registers:
 ; --> the first parameter into rcx (64 bits - long long) / ecx (32 bits - int)
@@ -29,6 +27,20 @@ sub_numbers:
 ; Function to multiply two integers
 ; int mul_numbers(int a, int b)
 mul_numbers:
-    mov eax, ecx
-    imul edx
-    ret
+    mov eax, ecx  ; Move the first parameter from ecx to eax (a)
+    imul edx      ; perform eax * edx (in edx is the second parameter b)
+    ret           ; return a * b
+
+; Function to divide two integers
+; int div_numbers(int a, int b)
+div_numbers:
+    mov eax, ecx  ; Move the first parameter from ecx to eax (a)
+    mov ebx, edx  ; Move the second parameter from edx to ebx (b)
+    
+    cdq ; convert double to quad word in order to sign extend eax
+    ; now we have the first variable (a) in EDX:EAX (as a quadword)
+
+    idiv ebx      ; dividing EDX:EAX by ebx
+    ; the result of the division will be in eax, remainder in edx
+
+   ret            ; returning the quotient and the remainder

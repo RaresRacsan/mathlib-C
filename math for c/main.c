@@ -7,10 +7,13 @@ int main() {
     int sum = add_numbers(a, b);
     int diff = sub_numbers(a, b);
     int mult = mul_numbers(a, b);
+    Division div = div_numbers(a, b);
 
     printf("Sum: %d\n", sum);
     printf("Difference: %d\n", diff);
     printf("Multiplication : %d\n", mult);
+    printf("Quotient: %d\n", div.quotient);
+    printf("Remainder: %d\n", div.remainder);
 
     return 0;
 }
