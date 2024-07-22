@@ -1,0 +1,18 @@
+exp, exp2, expm1
+log, log10, log2
+
+modf
+pow
+sqrt
+cbrt
+hypot
+
+fdim, fmax, fmin
+fabs, abs, fma
+
+ceil. floor, round, nearbyint
+
+isgreater, isgreaterequal, isless, islessequal, islessgreater
+
+infinity, nan
+last ------- acos, asin, atan
