@@ -13,6 +13,7 @@ int main() {
     Division div = div_numbers(a, b);
     double cosX = cos_function(x * PI / 180);
     double sinX = sin_function(x * PI / 180);
+    double tanX = tan_function(x * PI / 180);
 
     printf("Sum: %d\n", sum);
     printf("Difference: %d\n", diff);
@@ -21,6 +22,7 @@ int main() {
     printf("Remainder: %d\n", div.remainder);
     printf("cos(%f) = %f\n", x, cosX);
     printf("sin(%f) = %f\n", x, sinX);
+    printf("tan(%f) = %f\n", x, tanX);
 
     return 0;
 }
