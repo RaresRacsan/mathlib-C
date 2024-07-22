@@ -12,4 +12,8 @@ extern int sub_numbers(int a, int b);
 extern int mul_numbers(int a, int b);
 extern Division div_numbers(int a, int b);
 
+extern double cos_function(double a);
+extern double sin_function(double a);
+extern double tan_function(double a);
+
 #endif // MATH_H

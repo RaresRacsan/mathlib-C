@@ -1,5 +1,5 @@
 section .text
-    global add_numbers, sub_numbers, mul_numbers, div_numbers
+    global add_numbers, sub_numbers, mul_numbers, div_numbers, cos_function, sin_function
 
 ; In 64-bit Windows (x64), the first four integer or pointer parameters are passed in the following registers:
 ; --> the first parameter into rcx (64 bits - long long) / ecx (32 bits - int)
@@ -44,3 +44,41 @@ div_numbers:
     ; the result of the division will be in eax, remainder in edx
 
    ret            ; returning the quotient and the remainder
+
+; Function to compute cos
+; double cos_function(double a)
+cos_function:
+    ; xmm0 is used to return values from functions, and as the first function argument
+    ; input: xmm0 = a (floating-point argument)
+    ; output: xmm0 = cos(a)
+
+    sub rsp, 8              ; allocate memory on the stack
+
+    movsd qword [rsp], xmm0 ; store xmm0 on the stack
+    fld qword [rsp]         ; load the value into st(0)
+
+    fcos                    ; compute cos
+
+    fstp qword [rsp]        ; store the result from st(0) into memory
+    movsd xmm0, qword [rsp] ; load the result into xmm0
+
+    add rsp, 8              ; deallocate space on stack
+
+    ret                     ; return cos(a)
+
+; Function to compute sin
+; double sin_function(double a)
+sin_function:
+    sub rsp, 8              ; allocate memory on the stack
+
+    movsd qword [rsp], xmm0 ; store xmm0 on the stack
+    fld qword [rsp]         ; load the value into st(0)
+
+    fsin                    ; compute sin
+
+    fstp qword [rsp]        ; store the result from st(0) into memory
+    movsd xmm0, qword [rsp] ; load the result into xmm0
+
+    add rsp, 8              ; deallocate space on stack
+
+    ret                     ; return sin(a)
