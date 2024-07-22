@@ -16,3 +16,5 @@ isgreater, isgreaterequal, isless, islessequal, islessgreater
 
 infinity, nan
 last ------- acos, asin, atan
+
+https://cplusplus.com/reference/cmath/
