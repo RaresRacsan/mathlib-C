@@ -12,8 +12,6 @@ fabs, abs, fma
 
 ceil, floor, round, nearbyint
 
-islessgreater
-
 infinity, nan
 last ------- acos, asin, atan
 
