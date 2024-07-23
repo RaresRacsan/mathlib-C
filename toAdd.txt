@@ -12,7 +12,6 @@ fabs, abs, fma
 
 ceil, floor, round, nearbyint
 
-infinity, nan
 last ------- acos, asin, atan
 
 https://cplusplus.com/reference/cmath/
