@@ -12,7 +12,7 @@ fabs, abs, fma
 
 ceil, floor, round, nearbyint
 
-isgreater, isgreaterequal, isless, islessequal, islessgreater
+isgreaterequal, isless, islessequal, islessgreater
 
 infinity, nan
 last ------- acos, asin, atan
