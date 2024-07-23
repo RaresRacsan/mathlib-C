@@ -1,5 +1,7 @@
 section .text
-    global add_numbers, sub_numbers, mul_numbers, div_numbers, cos_function, sin_function, tan_function
+    global add_numbers, sub_numbers, mul_numbers, div_numbers
+    global cos_function, sin_function, tan_function
+    global is_greater, is_greaterequal, is_less, is_lessequal, is_lessgreater
 
 ; In 64-bit Windows (x64), the first four integer or pointer parameters are passed in the following registers:
 ; --> the first parameter into rcx (64 bits - long long) / ecx (32 bits - int)
@@ -105,3 +107,63 @@ tan_function:
     add rsp, 8              ; deallocate space on stack
 
     ret                     ; return tan(a)
+
+; Function to check if a > b
+; int is_greater(int a, int b)
+is_greater:
+    cmp ecx, edx        ; comparing a with b
+    jg greaterthan      ; jump if greater to greaterthan
+    xor eax, eax        ; making eax 0 if a <= b
+    ret                 ; returning 0
+    greaterthan:
+        mov eax, 1          ; if a is greater than b
+        ret                 ; returning 1
+
+; Function to check if a >= b
+; int is_greaterequal(int a, int b)
+is_greaterequal:
+    cmp ecx, edx        ; comparing a with b
+    jge goe             ; jump if greater or equal to goe
+    xor eax, eax        ; if a < b then eax = 0
+    ret                 ; ret 0
+    goe:
+        mov eax, 1      ; if a >= b make eax 1
+        ret             ; return 1
+
+; Function to check if a < b
+; int is_less(int a, int b)
+is_less:
+    cmp ecx, edx        ; comparing a with b
+    jl less             ; if a < b jump to less
+    xor eax, eax        ; else make eax 0
+    ret                 ; return 0
+    less:
+        mov eax, 1      ; make eax 1
+        ret             ; return 1
+
+; Function to check if a <= b
+; int is_lessequal(int a, int b)
+is_lessequal:
+    ; the functions above are commented, no need to comment this one
+    cmp ecx, edx
+    jle lessequal
+    xor eax, eax
+    ret
+    lessequal:
+        mov eax, 1
+        ret
+
+; is less or greater
+; int is-is_lessgreater(int a, int b)
+is_lessgreater:
+    cmp ecx, edx
+    jl itisless
+    jg itisgreater
+    xor eax, eax            ; we are here only in the case in which a == b (eax == 0)
+    ret                     ; and return 0
+    itisless:
+        mov eax, -1         ; if a < b, make eax -1
+        ret                 ; return -1
+    itisgreater:
+        mov eax, 1          ; if a > b, make eax 1
+        ret                 ; return 1

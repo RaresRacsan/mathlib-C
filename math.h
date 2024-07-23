@@ -16,4 +16,10 @@ extern double cos_function(double a);
 extern double sin_function(double a);
 extern double tan_function(double a);
 
+extern int is_greater(int a, int b);
+extern int is_greaterequal(int a, int b);
+extern int is_less(int a, int b);
+extern int is_lessequal(int a, int b);
+extern int is_lessgreater(int a, int b);
+
 #endif // MATH_H
