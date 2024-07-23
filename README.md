@@ -48,7 +48,36 @@ double sin_function(double a)
 ```
 Computes the sine of a double-precision floating-point number.
 
-4. **more to come**
+### Comparison functions
+1. **is_greater**
+```assembly
+int is_greater(int a, int b)
+```
+Returns 1 if the first integer is greater than the second, otherwise returns 0.
+
+2. **is_greaterequal**
+```assembly
+int is_greaterequal(int a, int b)
+```
+Returns 1 if the first integer is greater than or equal to the second, otherwise returns 0.
+
+3. **is_less**
+```assembly
+int is_less(int a, int b)
+```
+Returns 1 if the first integer is less than the second, otherwise returns 0.
+
+4. **is_lessequal**
+```assembly
+int is_lessequal(int a, int b)
+```
+Returns 1 if the first integer is less than or equal to the second, otherwise returns 0.
+
+5. **is_lessgreater**
+```assembly
+int is_lessgreater(int a, int b)
+```
+Returns -1 if the first integer is less than the second, 0 if they are equal, and 1 if the first integer is greater than the second.
 
 ## Detailed compilation steps
 1. Assemble the NASM code:
