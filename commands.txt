@@ -1,4 +1,0 @@
-nasm -f win64 math.asm -o math.o
-gcc -c main.c -o main.o
-gcc main.o math.o -o main.exe
-./main.exe

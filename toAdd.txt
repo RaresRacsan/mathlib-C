@@ -1,0 +1,18 @@
+exp, exp2, expm1
+log, log10, log2
+
+modf
+pow
+sqrt
+cbrt
+hypot
+
+fdim, fmax, fmin
+fabs, abs, fma
+
+ceil, floor, round, nearbyint
+
+infinity, nan
+last ------- acos, asin, atan
+
+https://cplusplus.com/reference/cmath/
