@@ -85,7 +85,7 @@ int is_lessgreater(int a, int b)
 ```
 Returns -1 if the first integer is less than the second, 0 if they are equal, and 1 if the first integer is greater than the second.
 
-### Floating numbers functions
+### Functions on floating numbers
 
 1. **fdim**
     ```assembly
