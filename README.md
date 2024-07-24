@@ -105,13 +105,13 @@ This repository contains assembly code implementations of basic Math functions f
 
 ### Other functions
 
-2. **fmax**
+1. **fmax**
     ```assembly
     double fmax(double a, double b)
     ```
     Returns the maximum of a and b.
 
-3. **fmin**
+2. **fmin**
     ```assembly
     double fmin(double a, double b)
     ```
