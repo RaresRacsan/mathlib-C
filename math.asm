@@ -1,7 +1,8 @@
 section .text
-    global add_numbers, sub_numbers, mul_numbers, div_numbers
+    global add_numbers, sub_numbers, mul_numbers, div_numbers, _abs
     global cos_function, sin_function, tan_function
     global is_greater, is_greaterequal, is_less, is_lessequal, is_lessgreater
+    global fdim, fmax, fmin, fabs, fma
 
 ; In 64-bit Windows (x64), the first four integer or pointer parameters are passed in the following registers:
 ; --> the first parameter into rcx (64 bits - long long) / ecx (32 bits - int)
@@ -47,6 +48,17 @@ div_numbers:
 
    ret            ; returning the quotient and the remainder
 
+; returns the absolute value of a
+; int abs(int a)
+_abs:
+    mov eax, ecx
+    test eax, eax       ; test eax - eax
+    jns end_abs
+    ; if negative, negate it
+    neg eax
+    end_abs:
+        ret             ; return the abs value
+
 ; Function to compute cos
 ; double cos_function(double a)
 cos_function:
@@ -85,6 +97,8 @@ sin_function:
 
     ret                     ; return sin(a)
 
+; Function to compute tan
+; double tan_function(double a)
 tan_function:
     ; xmm0 is used to return values from functions, and as the first function argument
     ; input: xmm0 = a (floating-point argument)
@@ -154,7 +168,7 @@ is_lessequal:
         ret
 
 ; is less or greater
-; int is-is_lessgreater(int a, int b)
+; int is_lessgreater(int a, int b)
 is_lessgreater:
     cmp ecx, edx
     jl itisless
@@ -167,3 +181,56 @@ is_lessgreater:
     itisgreater:
         mov eax, 1          ; if a > b, make eax 1
         ret                 ; return 1
+
+; possitive difference between a and b
+; double fdim(double a, double b)
+fdim:
+    ; xmm0 - parameter a
+    ; xmm1 - parameter b
+    comisd xmm0, xmm1   ; compare a and b
+    jbe return_zero
+
+    subsd xmm0, xmm1    ; in case x > y perform x - y
+    ret                 ; returned x - y
+
+    return_zero:
+        pxor xmm0, xmm0 ; making xmm0 equal to 0
+        ret             ; returning 0
+
+; returns the max of a and b
+; double fmax(double a, double b)
+fmax:
+    ; xmm0 - a
+    ; xmm1 - b
+    comisd xmm0, xmm1
+    jbe return_b
+    
+    ret         ; returning a
+    return_b:
+        movaps xmm0, xmm1
+        ret     ; returning b
+
+; returns the min of a and b
+; double fmin(double a, double b)
+fmin:
+    comisd xmm0, xmm1
+    jae returning_b
+    ret                     ; returning a
+    returning_b:
+        movaps xmm0, xmm1
+        ret                 ; returning b
+
+; returns the absolute value of a
+; double fabs(double a)
+fabs:
+    movapd xmm1, xmm0          ; Copy the value of xmm0 to xmm1
+    psrlq xmm1, 63             ; Shift right by 63 bits to move the sign bit to LSB
+    psllq xmm1, 63             ; Shift left by 63 bits to clear the sign bit and retain the rest
+    xorps xmm0, xmm1           ; XOR the original number with xmm1 to clear the sign bit
+    ret                        ; abs value of a returned
+
+; returns (a * b) + c
+; double fma(double a, double b, double c)
+fma:
+    vfmadd213sd xmm0, xmm1, xmm2        ; xmm0 = (xmm0 * xmm1) + xmm2
+    ret

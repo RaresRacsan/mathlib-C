@@ -19,6 +19,12 @@ int main() {
     int l = is_less(a, b);
     int le = is_lessequal(b, a);
     int lg = is_lessgreater(b, a);
+    double fd = fdim(a, b);
+    double fm = fmax(a, b);
+    double fi = fmin(a, b);
+    double fa = fabs(b);
+    int ab = _abs(b);
+    double fmaa = fma(a, b, PI);
 
     printf("Sum: %d\n", sum);
     printf("Difference: %d\n", diff);
@@ -33,6 +39,12 @@ int main() {
     printf("A is less than B: %d\n", l);
     printf("B is less() or equal to A: %d\n", le);
     printf("B is less (-1), equal (0) or greater (1) than A: %d\n", lg);
+    printf("fdim(a, b) = %f\n", fd);
+    printf("fmax(a, b) = %f\n", fm);
+    printf("fmin(a, b) = %f\n", fi);
+    printf("fabs(b) = %f\n", fa);
+    printf("Abs(b): %d\n", ab);
+    printf("fma(a, b, PI) = %f\n", fmaa);
 
     return 0;
 }
