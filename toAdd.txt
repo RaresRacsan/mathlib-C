@@ -7,7 +7,7 @@ sqrt
 cbrt
 hypot
 
-abs, fma
+fma
 
 ceil, floor, round, nearbyint
 
