@@ -6,34 +6,34 @@ This repository contains assembly code implementations of basic Math functions f
 ### Aritmetic Functions
 
 1. **add_numbers**
-```assembly
-int add_numbers(int a, int b)
-```
-Adds two integers and returns the result.
+    ```assembly
+    int add_numbers(int a, int b)
+    ```
+    Adds two integers and returns the result.
 
 2. **sub_number**
-```assembly
-int sub_numbers(int a, int b)
-```
-Subtracts the second integer from the first and returns the result.
+    ```assembly
+    int sub_numbers(int a, int b)
+    ```
+    Subtracts the second integer from the first and returns the result.
 
 3. **mul_numbers**
-```assembly
-int mul_numbers(int a, int b)
-```
-Multiplies two integers and returns the result.
+    ```assembly
+    int mul_numbers(int a, int b)
+    ```
+    Multiplies two integers and returns the result.
 
 4. **div_numbers**
-```assembly
-int div_numbers(int a, int b)
-```
-Divides the first integer by the second and returns the quotient.
+    ```assembly
+    int div_numbers(int a, int b)
+    ```
+    Divides the first integer by the second and returns the quotient.
 
 5. **abs**
-```assembly
-int abs(int a)
-```
-Returns the absolute value of the parameter.
+    ```assembly
+    int abs(int a)
+    ```
+    Returns the absolute value of the parameter.
 
 6. **fabs**
     ```assembly
