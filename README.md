@@ -29,6 +29,12 @@ int div_numbers(int a, int b)
 ```
 Divides the first integer by the second and returns the quotient.
 
+5. **abs**
+```assembly
+int abs(int a)
+```
+Returns the absolute value of the parameter.
+
 ### Trigonometric functions
 1. **cos_function**
 ```assembly
