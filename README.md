@@ -85,6 +85,38 @@ int is_lessgreater(int a, int b)
 ```
 Returns -1 if the first integer is less than the second, 0 if they are equal, and 1 if the first integer is greater than the second.
 
+### Floating numbers functions
+
+1. **fdim**
+    ```assembly
+    double fdim(double a, double b)
+    ```
+    Returns the positive difference between a and b (i.e., a - b if a > b, otherwise 0).
+
+2. **fmax**
+    ```assembly
+    double fmax(double a, double b)
+    ```
+    Returns the maximum of a and b.
+
+3. **fmin**
+    ```assembly
+    double fmin(double a, double b)
+    ```
+    Returns the minimum of a and b.
+
+4. **fabs**
+    ```assembly
+    double fabs(double a)
+    ```
+    Returns the absolute value of a double-precision floating-point number.
+
+5. **fma**
+    ```assembly
+    double fma(double a, double b, double c)
+    ```
+    Returns (a * b) + c using a fused multiply-add operation.
+
 ## Detailed compilation steps
 1. Assemble the NASM code:
 ```sh
