@@ -2,8 +2,6 @@ exp, exp2, expm1, log, log10, log2
 
 modf, pow, sqrt, cbrt, hypot
 
-fma
-
 ceil, floor, round, nearbyint
 
 last ------- acos, asin, atan
