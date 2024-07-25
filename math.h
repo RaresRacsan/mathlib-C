@@ -29,4 +29,6 @@ extern double fmin(double a, double b);
 extern double fabs(double a);
 extern double fma(double a, double b, double c);
 
+extern int _pow(int a, int b);
+
 #endif // MATH_H

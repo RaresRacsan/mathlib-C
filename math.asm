@@ -3,6 +3,7 @@ section .text
     global cos_function, sin_function, tan_function
     global is_greater, is_greaterequal, is_less, is_lessequal, is_lessgreater
     global fdim, fmax, fmin, fabs, fma
+    global _pow
 
 ; In 64-bit Windows (x64), the first four integer or pointer parameters are passed in the following registers:
 ; --> the first parameter into rcx (64 bits - long long) / ecx (32 bits - int)
@@ -234,3 +235,55 @@ fabs:
 fma:
     vfmadd213sd xmm0, xmm1, xmm2        ; xmm0 = (xmm0 * xmm1) + xmm2
     ret
+
+; returns a ^ b
+; int _pow(int a, int b)
+_pow:
+    section .text
+    global pow
+
+; Function to compute the power of an integer raised to an integer
+; int pow(int base, int exponent)
+pow:
+    ; rcx - base (int)
+    ; rdx - exponent (int)
+
+    ; Handle special cases
+    cmp rdx, 0
+    je .return_one          ; if exponent == 0, return 1
+
+    mov r8, rcx             ; r8 = base (copy of the base)
+    mov rax, rdx            ; rax = exponent
+
+    ; Handle negative exponents
+    test rax, rax
+    js .return_zero         ; if exponent < 0, return 0
+
+    .positive_exp:
+        ; Initialize result to 1
+        mov r9, 1               ; r9 = 1 (result)
+
+    .pow_loop:
+        test rax, rax
+        jz .done                ; if rax == 0, done
+
+        ; Multiply result by base
+        imul r9, r8             ; r9 *= base
+        sub rax, 1              ; decrement exponent
+
+        jmp .pow_loop           ; repeat the loop
+
+    .done:
+        ; Return the result in rax
+        mov rax, r9
+        ret
+
+    .return_one:
+        ; Return 1
+        mov rax, 1
+        ret
+
+    .return_zero:
+        ; Return 0
+        xor rax, rax            ; rax = 0
+        ret
