@@ -1,7 +1,5 @@
 exp, exp2, expm1, log, log10, log2
 
-hypot
-
 ceil, floor, round, nearbyint, modf
 
 last ------- acos, asin, atan
