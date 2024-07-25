@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "math.h"
 
+// Testing the functions
+
 #define PI 3.14159265
 
 int main() {
@@ -28,6 +30,7 @@ int main() {
     int pw1 = _pow(11, -1);
     int pw2 = _pow(2, 10);
     int sqr = _sqrt(121);
+    int cbr = _cbrt(64);
 
     printf("Sum: %d\n", sum);
     printf("Difference: %d\n", diff);
@@ -51,6 +54,7 @@ int main() {
     printf("pow() = %d\n", pw1);
     printf("pow() = %d\n", pw2);
     printf("sqrt() = %d\n", sqr);
+    printf("cbrt() = %d\n", cbr);
 
     return 0;
 }

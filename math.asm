@@ -3,7 +3,7 @@ section .text
     global cos_function, sin_function, tan_function
     global is_greater, is_greaterequal, is_less, is_lessequal, is_lessgreater
     global fdim, fmax, fmin, fabs, fma
-    global _pow, _sqrt
+    global _pow, _sqrt, _cbrt
 
 ; In 64-bit Windows (x64), the first four integer or pointer parameters are passed in the following registers:
 ; --> the first parameter into rcx (64 bits - long long) / ecx (32 bits - int)
@@ -338,3 +338,59 @@ _sqrt:
         mov eax, edx
         ret
 
+; Function to compute the cbrt of an integer
+; int _cbrt(int a)
+_cbrt:
+    ; Load argument into eax
+    mov eax, ecx
+
+    ; Special case for 0
+    test eax, eax
+    jz .done_cbrt
+
+    ; Initialize low, high, and mid
+    mov ecx, eax         ; ecx = x (high)
+    shr ecx, 1           ; ecx = x / 2 (initial high guess)
+    mov edx, 1           ; edx = 1 (initial low guess)
+
+    .loop_cbrt:
+        ; Calculate mid = (low + high) / 2
+        mov ebx, ecx         ; ebx = high
+        add ebx, edx         ; ebx = low + high
+        shr ebx, 1           ; ebx = (low + high) / 2
+        mov esi, ebx         ; esi = mid
+
+        ; Calculate mid*mid
+        imul esi, esi        ; esi = mid * mid
+        imul esi, ebx        ; esi = mid * mid * mid
+        cmp esi, eax         ; Compare mid*mid with x
+        je .found_cbrt            ; If mid * mid * mid == x, we've found the result
+        jl .adjust_low_cbrt       ; If mid * mid * mid < x, adjust low
+        jg .adjust_high_cbrt      ; If mid * mid * mid > x, adjust high
+
+    .adjust_low_cbrt:
+        mov edx, ebx         ; low = mid
+        jmp .check_terminate_cbrt
+
+    .adjust_high_cbrt:
+        mov ecx, ebx         ; high = mid
+        jmp .check_terminate_cbrt
+
+    .check_terminate_cbrt:
+        ; Check if low and high are too close to refine further
+        mov esi, ecx
+        sub esi, edx
+        cmp esi, 1
+        jle .done_cbrt            ; If high - low <= 1, terminate loop
+        jmp .loop_cbrt
+
+    .found_cbrt:
+        mov eax, ebx         ; eax = mid (result)
+        ret
+
+    .done_cbrt:
+        ; If we didn't find an exact match, return the lower bound
+        cmp esi, 1
+        jg .found_cbrt
+        mov eax, edx
+        ret
