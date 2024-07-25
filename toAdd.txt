@@ -1,6 +1,6 @@
 exp, exp2, expm1, log, log10, log2
 
-modf, cbrt, hypot
+modf, hypot
 
 ceil, floor, round, nearbyint
 
