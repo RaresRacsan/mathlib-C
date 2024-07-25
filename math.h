@@ -30,5 +30,6 @@ extern double fabs(double a);
 extern double fma(double a, double b, double c);
 
 extern int _pow(int a, int b);
+extern int _sqrt(int a);
 
 #endif // MATH_H

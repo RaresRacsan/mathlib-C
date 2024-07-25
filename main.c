@@ -27,6 +27,7 @@ int main() {
     double fmaa = fma(a, b, PI);
     int pw1 = _pow(11, -1);
     int pw2 = _pow(2, 10);
+    int sqr = _sqrt(121);
 
     printf("Sum: %d\n", sum);
     printf("Difference: %d\n", diff);
@@ -49,6 +50,7 @@ int main() {
     printf("fma(a, b, PI) = %f\n", fmaa);
     printf("pow() = %d\n", pw1);
     printf("pow() = %d\n", pw2);
+    printf("sqrt() = %d\n", sqr);
 
     return 0;
 }
