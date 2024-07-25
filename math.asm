@@ -236,17 +236,15 @@ fma:
     vfmadd213sd xmm0, xmm1, xmm2        ; xmm0 = (xmm0 * xmm1) + xmm2
     ret
 
-; returns a ^ b
-; int _pow(int a, int b)
-_pow:
-    section .text
-    global pow
-
 ; Function to compute the power of an integer raised to an integer
 ; int pow(int base, int exponent)
-pow:
+_pow:
     ; rcx - base (int)
     ; rdx - exponent (int)
+
+    ; Handle negative exponents
+    cmp edx, 0
+    jl .return_zero         ; if exponent < 0, return 0
 
     ; Handle special cases
     cmp rdx, 0
@@ -254,10 +252,6 @@ pow:
 
     mov r8, rcx             ; r8 = base (copy of the base)
     mov rax, rdx            ; rax = exponent
-
-    ; Handle negative exponents
-    test rax, rax
-    js .return_zero         ; if exponent < 0, return 0
 
     .positive_exp:
         ; Initialize result to 1

@@ -25,7 +25,7 @@ int main() {
     double fa = fabs(b);
     int ab = _abs(b);
     double fmaa = fma(a, b, PI);
-    int pw1 = _pow(11, 10);
+    int pw1 = _pow(11, -1);
     int pw2 = _pow(2, 10);
 
     printf("Sum: %d\n", sum);
