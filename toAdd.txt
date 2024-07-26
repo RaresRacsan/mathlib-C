@@ -1,6 +1,6 @@
 exp, exp2, expm1, log, log10, log2
 
-ceil, floor, round, nearbyint, modf
+ceil, floor, round, nearbyint
 
 last ------- acos, asin, atan
 
