@@ -1,5 +1,3 @@
 exp, exp2, expm1, log, log10, log2
 
-last ------- acos, asin, atan
-
 https://cplusplus.com/reference/cmath/
