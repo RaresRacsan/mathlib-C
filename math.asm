@@ -4,6 +4,7 @@ section .text
     global is_greater, is_greaterequal, is_less, is_lessequal, is_lessgreater
     global fdim, fmax, fmin, fabs, fma
     global _pow, _sqrt, _cbrt
+    global _exp
 
 ; In 64-bit Windows (x64), the first four integer or pointer parameters are passed in the following registers:
 ; --> the first parameter into rcx (64 bits - long long) / ecx (32 bits - int)
@@ -393,4 +394,45 @@ _cbrt:
         cmp esi, 1
         jg .found_cbrt
         mov eax, edx
+        ret
+
+; Returns the base-e exponential function of x, which is e raised to the power x: e^x
+; double exp(double x);
+_exp:
+    movsd xmm1, xmm0         ; Move the argument to xmm1 for later use
+
+    ; Initialize constants
+    mov rax, 0x3ff0000000000000 ; Load 1.0 into rax (IEEE 754 format)
+    movq xmm2, rax           ; Move 1.0 to xmm2 (result)
+    movq xmm3, rax           ; Move 1.0 to xmm3 (term)
+    
+    ; Initialize loop counter
+    mov rax, 1               ; rax = 1 (iteration = 1)
+    
+    ; Initialize tolerance (very small number)
+    mov rbx, 0x3cb0000000000000 ; Load 1e-10 into rbx (IEEE 754 format)
+    movq xmm4, rbx           ; Move 1e-10 to xmm4 (tolerance)
+
+    loop_start:
+        ; Calculate term = term * x / iteration
+        mulsd xmm3, xmm1         ; xmm3 *= xmm1 (term *= x)
+        cvtsi2sd xmm5, rax       ; Convert rax to double and store in xmm5
+        divsd xmm3, xmm5         ; xmm3 /= xmm5 (term /= iteration)
+
+        ; Add the term to the result
+        addsd xmm2, xmm3         ; xmm2 += xmm3 (result += term)
+
+        ; Check if the term is small enough (convergence check)
+        ucomisd xmm3, xmm4       ; Compare term with tolerance
+        jbe loop_end             ; If term <= tolerance, break the loop
+
+        ; Increment the iteration counter
+        inc rax                  ; rax += 1 (iteration++)
+
+        ; Repeat the loop
+        jmp loop_start
+
+    loop_end:
+        ; Return the result in xmm0
+        movsd xmm0, xmm2         ; Move the result to xmm0
         ret
