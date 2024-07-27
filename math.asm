@@ -4,7 +4,7 @@ section .text
     global is_greater, is_greaterequal, is_less, is_lessequal, is_lessgreater
     global fdim, fmax, fmin, fabs, fma
     global _pow, _sqrt, _cbrt
-    global _exp
+    global _exp, _exp2
 
 ; In 64-bit Windows (x64), the first four integer or pointer parameters are passed in the following registers:
 ; --> the first parameter into rcx (64 bits - long long) / ecx (32 bits - int)
@@ -435,4 +435,32 @@ _exp:
     loop_end:
         ; Return the result in xmm0
         movsd xmm0, xmm2         ; Move the result to xmm0
+        ret
+
+; Returns the base-2 exponential function of x, which is 2 raised to the power x: 2^x.
+; int _exp2(int x)
+_exp2:
+    mov eax, ecx
+    mov ebx, 1
+
+    test eax, eax
+    js negative_exponent
+
+    positive_exponent:
+        ; Loop to calculate 2^x for positive x
+        cmp eax, 0            ; Compare eax with 0
+        je done               ; If eax == 0, jump to done
+
+    positive_loop:
+        shl ebx, 1            ; Left shift rbx by 1 (ebx *= 2)
+        dec eax               ; Decrement eax
+        jnz positive_loop     ; If eax != 0, repeat the loop
+
+        jmp done              ; Jump to done
+
+    negative_exponent:
+        xor ebx, ebx
+
+    done:
+        mov eax, ebx
         ret

@@ -35,5 +35,6 @@ extern int _sqrt(int a);
 extern int _cbrt(int a);
 
 extern double _exp(double a);
+extern int _exp2(int a);
 
 #endif // MATH_H
