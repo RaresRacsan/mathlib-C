@@ -4,7 +4,7 @@ section .text
     global is_greater, is_greaterequal, is_less, is_lessequal, is_lessgreater
     global fdim, fmax, fmin, fabs, fma
     global _pow, _sqrt, _cbrt
-    global _exp, _exp2, _expm1, _log, _log10
+    global _exp, _exp2, _expm1, _log, _log10, _log2
 
 ; In 64-bit Windows (x64), the first four integer or pointer parameters are passed in the following registers:
 ; --> the first parameter into rcx (64 bits - long long) / ecx (32 bits - int)
@@ -546,6 +546,30 @@ _log10:
     fldlg2                  ; Load log2(10) into ST(0)
     fxch                    ; Swap ST(0) and ST(1)
     fyl2x                   ; Compute log2(x) * log2(10) = log2(x) / log2(10) = log10(x)
+
+    ; Move the result from the FPU stack to xmm0
+    fstp qword [rsp]        ; Store the result in memory
+    movsd xmm0, qword [rsp] ; Move the result to xmm0
+
+    ; Clean up stack
+    add rsp, 8              ; Deallocate stack space
+
+    ret
+
+; Returns the binary (base-2) logarithm of x.
+; double _log2(double x)
+_log2:
+    ; Allocate space on the stack
+    sub rsp, 8              ; Allocate 8 bytes for temporary storage
+
+    ; Move the input from xmm0 to the FPU stack
+    movsd qword [rsp], xmm0 ; Store xmm0 value on the stack
+    fld qword [rsp]         ; Load the value into ST(0)
+
+    ; Compute log2(x) using the formula: log2(x)
+    fld1                    ; Load 1.0 into ST(0)
+    fxch                    ; Swap ST(0) and ST(1)
+    fyl2x                   ; Compute log2(x)
 
     ; Move the result from the FPU stack to xmm0
     fstp qword [rsp]        ; Store the result in memory

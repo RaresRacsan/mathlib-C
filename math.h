@@ -38,5 +38,6 @@ extern int _exp2(int a);
 extern double _expm1(double a);
 extern double _log(double a);
 extern double _log10(double a);
+extern double _log2(double a);
 
 #endif // MATH_H
