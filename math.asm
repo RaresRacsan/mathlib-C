@@ -4,7 +4,7 @@ section .text
     global is_greater, is_greaterequal, is_less, is_lessequal, is_lessgreater
     global fdim, fmax, fmin, fabs, fma
     global _pow, _sqrt, _cbrt
-    global _exp, _exp2, _expm1
+    global _exp, _exp2, _expm1, _log
 
 ; In 64-bit Windows (x64), the first four integer or pointer parameters are passed in the following registers:
 ; --> the first parameter into rcx (64 bits - long long) / ecx (32 bits - int)
@@ -508,3 +508,26 @@ _expm1:
         movq xmm1, rax
         subsd xmm0, xmm1
         ret
+
+; Function to compute the natural logarithm of a floating-point number
+; double _log(double x)
+_log:
+    sub rsp, 8              ; Allocate 8 bytes for temporary storage
+
+    ; Move the input from xmm0 to the FPU stack
+    movsd qword [rsp], xmm0 ; Store xmm0 value on the stack
+    fld qword [rsp]         ; Load the value into ST(0)
+
+    ; Compute the natural logarithm
+    fldln2                  ; Load ln(2) into ST(0)z`
+    fxch                    ; Swap ST(0) and ST(1)
+    fyl2x                   ; Compute ln(2) * log2(x) = ln(x)
+
+    ; Move the result from the FPU stack to xmm0
+    fstp qword [rsp]        ; Store the result in memory
+    movsd xmm0, qword [rsp] ; Move the result to xmm0
+
+    ; Clean up stack
+    add rsp, 8              ; Deallocate stack space
+
+    ret
