@@ -1,8 +1,7 @@
 #ifndef MATH_H
 #define MATH_H
 
-typedef struct
-{
+typedef struct {
     int quotient;
     int remainder;
 } Division;
@@ -37,6 +36,7 @@ extern int _cbrt(int a);
 extern double _exp(double a);
 extern int _exp2(int a);
 extern double _expm1(double a);
-extern double _log(double x);
+extern double _log(double a);
+extern double _log10(double a);
 
 #endif // MATH_H
