@@ -36,5 +36,6 @@ extern int _cbrt(int a);
 
 extern double _exp(double a);
 extern int _exp2(int a);
+extern double _expm1(double a);
 
 #endif // MATH_H
