@@ -1,8 +1,7 @@
 section .text
-    global add_numbers, sub_numbers, mul_numbers, div_numbers, _abs
     global cos_function, sin_function, tan_function
     global is_greater, is_greaterequal, is_less, is_lessequal, is_lessgreater
-    global fdim, fmax, fmin, fabs, fma
+    global fdim, fmax, fmin, fabs, fma, _abs
     global _pow, _sqrt, _cbrt
     global _exp, _exp2, _expm1, _log, _log10, _log2
 
@@ -14,41 +13,6 @@ section .text
 ; --> the rest are on the stack
 
 ; Function implementation from here:
-
-; Function to add two integers
-; int add_numbers(int a, int b)
-add_numbers:
-    mov eax, ecx  ; Move the first parameter from ecx to eax (a)
-    add eax, edx  ; Add the second parameter from edx to eax (b)
-    ret           ; return a + b
-
-; Function to subtract two integers
-; int sub_numbers(int a, int b)
-sub_numbers:
-    mov eax, ecx  ; Move the first parameter from ecx to eax (a)
-    sub eax, edx  ; Substract the second parameter
-    ret           ; return a - b
-
-; Function to multiply two integers
-; int mul_numbers(int a, int b)
-mul_numbers:
-    mov eax, ecx  ; Move the first parameter from ecx to eax (a)
-    imul edx      ; perform eax * edx (in edx is the second parameter b)
-    ret           ; return a * b
-
-; Function to divide two integers
-; int div_numbers(int a, int b)
-div_numbers:
-    mov eax, ecx  ; Move the first parameter from ecx to eax (a)
-    mov ebx, edx  ; Move the second parameter from edx to ebx (b)
-    
-    cdq ; convert double to quad word in order to sign extend eax
-    ; now we have the first variable (a) in EDX:EAX (as a quadword)
-
-    idiv ebx      ; dividing EDX:EAX by ebx
-    ; the result of the division will be in eax, remainder in edx
-
-   ret            ; returning the quotient and the remainder
 
 ; returns the absolute value of a
 ; int abs(int a)
@@ -289,35 +253,36 @@ _sqrt:
     ; Load argument into eax
     mov eax, ecx
 
-    ; Special case for 0
-    test eax, eax
-    jz .done
+    ; Special case for 0 and 1
+    cmp eax, 1
+    jbe .done
 
-    ; Initialize low, high, and mid
-    mov ecx, eax         ; ecx = x (high)
-    shr ecx, 1           ; ecx = x / 2 (initial high guess)
-    mov edx, 1           ; edx = 1 (initial low guess)
+    ; Initialize low and high
+    mov edx, 0            ; edx = low = 0
+    mov ecx, eax          ; ecx = high = x
 
     .loop:
         ; Calculate mid = (low + high) / 2
-        mov ebx, ecx         ; ebx = high
-        add ebx, edx         ; ebx = low + high
-        shr ebx, 1           ; ebx = (low + high) / 2
-        mov esi, ebx         ; esi = mid
+        mov ebx, edx      ; ebx = low
+        add ebx, ecx      ; ebx = low + high
+        shr ebx, 1        ; ebx = (low + high) / 2
 
         ; Calculate mid*mid
-        imul esi, esi        ; esi = mid * mid
-        cmp esi, eax         ; Compare mid*mid with x
-        je .found            ; If mid*mid == x, we've found the result
-        jl .adjust_low       ; If mid*mid < x, adjust low
-        jg .adjust_high      ; If mid*mid > x, adjust high
+        mov esi, ebx      ; esi = mid
+        imul esi, ebx     ; esi = mid * mid
+
+        ; Compare mid*mid with x
+        cmp esi, eax
+        je .found         ; If mid*mid == x, we've found the result
+        jl .adjust_low    ; If mid*mid < x, adjust low
+        jg .adjust_high   ; If mid*mid > x, adjust high
 
     .adjust_low:
-        mov edx, ebx         ; low = mid
+        mov edx, ebx      ; low = mid
         jmp .check_terminate
 
     .adjust_high:
-        mov ecx, ebx         ; high = mid
+        mov ecx, ebx      ; high = mid
         jmp .check_terminate
 
     .check_terminate:
@@ -325,18 +290,15 @@ _sqrt:
         mov esi, ecx
         sub esi, edx
         cmp esi, 1
-        jle .done            ; If high - low <= 1, terminate loop
+        jle .done         ; If high - low <= 1, terminate loop
         jmp .loop
 
     .found:
-        mov eax, ebx         ; eax = mid (result)
+        mov eax, ebx      ; eax = mid (result)
         ret
 
     .done:
         ; If we didn't find an exact match, return the lower bound
-        cmp esi, 1
-        jg .found
-        mov eax, edx
         ret
 
 ; Function to compute the cbrt of an integer
