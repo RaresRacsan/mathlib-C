@@ -5,49 +5,25 @@ This repository contains assembly code implementations of basic Math functions f
 
 ### Aritmetic Functions
 
-1. **add_numbers**
-    ```assembly
-    int add_numbers(int a, int b)
-    ```
-    Adds two integers and returns the result.
-
-2. **sub_number**
-    ```assembly
-    int sub_numbers(int a, int b)
-    ```
-    Subtracts the second integer from the first and returns the result.
-
-3. **mul_numbers**
-    ```assembly
-    int mul_numbers(int a, int b)
-    ```
-    Multiplies two integers and returns the result.
-
-4. **div_numbers**
-    ```assembly
-    int div_numbers(int a, int b)
-    ```
-    Divides the first integer by the second and returns the quotient.
-
-5. **abs**
+1. **abs**
     ```assembly
     int abs(int a)
     ```
     Returns the absolute value of the parameter.
 
-6. **fabs**
+2. **fabs**
     ```assembly
     double fabs(double a)
     ```
     Returns the absolute value of a double-precision floating-point number.
 
-7. **fdim**
+3. **fdim**
     ```assembly
     double fdim(double a, double b)
     ```
     Returns the positive difference between a and b (i.e., a - b if a > b, otherwise 0).
 
-8. **fma**
+4. **fma**
     ```assembly
     double fma(double a, double b, double c)
     ```
