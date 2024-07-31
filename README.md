@@ -44,66 +44,72 @@ This repository contains assembly code implementations of basic Math functions f
 ### Trigonometric functions
 1. **cos_function**
     ```assembly
-    double cos_function(double a)
+    double cos_function(double a);
     ```
     Computes the cosine of a double-precision floating-point number.
 
 2. **sin_function**
     ```assembly
-    double sin_function(double a)
+    double sin_function(double a);
     ```
     Computes the sine of a double-precision floating-point number.
 
 3. **tan_function**
     ```assembly
-    double sin_function(double a)
+    double sin_function(double a);
     ```
     Computes the sine of a double-precision floating-point number.
 
 ### Comparison functions
 1. **is_greater**
     ```assembly
-    int is_greater(int a, int b)
+    int is_greater(int a, int b);
     ```
     Returns 1 if the first integer is greater than the second, otherwise returns 0.
 
 2. **is_greaterequal**
     ```assembly
-    int is_greaterequal(int a, int b)
+    int is_greaterequal(int a, int b);
     ```
     Returns 1 if the first integer is greater than or equal to the second, otherwise returns 0.
 
 3. **is_less**
     ```assembly
-    int is_less(int a, int b)
+    int is_less(int a, int b);
     ```
     Returns 1 if the first integer is less than the second, otherwise returns 0.
 
 4. **is_lessequal**
     ```assembly
-    int is_lessequal(int a, int b)
+    int is_lessequal(int a, int b);
     ```
     Returns 1 if the first integer is less than or equal to the second, otherwise returns 0.
 
 5. **is_lessgreater**
     ```assembly
-    int is_lessgreater(int a, int b)
+    int is_lessgreater(int a, int b);
     ```
     Returns -1 if the first integer is less than the second, 0 if they are equal, and 1 if the first integer is greater than the second.
 
-### Other functions
+### Minimum, maximum, difference functions
 
 1. **fmax**
     ```assembly
-    double fmax(double a, double b)
+    double fmax(double a, double b);
     ```
     Returns the maximum of a and b.
 
 2. **fmin**
     ```assembly
-    double fmin(double a, double b)
+    double fmin(double a, double b);
     ```
     Returns the minimum of a and b.
+
+3. **fdim**
+    ```assembly
+    double fdim(double a, double b);
+    ```
+    Returns the positive difference between x and y.
 
 ## Detailed compilation steps
 1. Assemble the NASM code:
