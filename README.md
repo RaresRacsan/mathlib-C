@@ -3,31 +3,43 @@ This repository contains assembly code implementations of basic Math functions f
 
 ## Functions
 
-### Aritmetic Functions
+### Exponential and logaritmic functions
 
-1. **abs**
+1. **exp**
     ```assembly
-    int abs(int a)
+    double _exp(double a);
     ```
-    Returns the absolute value of the parameter.
+    Returns the base-e exponential function of x, which is e raised to the power x: e^x.
 
-2. **fabs**
+2. **exp2**
     ```assembly
-    double fabs(double a)
+    int _exp2(int a);
     ```
-    Returns the absolute value of a double-precision floating-point number.
+    Returns the base-2 exponential function of x, which is 2 raised to the power x: 2x.
 
-3. **fdim**
+3. **expm1**
     ```assembly
-    double fdim(double a, double b)
+    double _expm1(double a);
     ```
-    Returns the positive difference between a and b (i.e., a - b if a > b, otherwise 0).
+    Returns e raised to the power x minus one: e^x-1.
 
-4. **fma**
+4. **log**
     ```assembly
-    double fma(double a, double b, double c)
+    double _log(double a);
     ```
-    Returns (a * b) + c using a fused multiply-add operation.
+    Returns the natural logarithm of x.
+   
+5. **log10**
+    ```assembly
+    double _log10(double a);
+    ```
+    Returns the common (base-10) logarithm of x.
+
+6. **log2**
+    ```assembly
+    double _log2(double a);
+    ```
+    Returns the binary (base-2) logarithm of x.
 
 ### Trigonometric functions
 1. **cos_function**
