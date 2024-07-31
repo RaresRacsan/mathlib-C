@@ -114,22 +114,22 @@ This repository contains assembly code implementations of basic Math functions f
 ### Other functions
 
 1. **fabs**
-```assembly
-double fabs(double a);
-```
-Returns the absolute value of x: |x|.
+    ```assembly
+    double fabs(double a);
+    ```
+    Returns the absolute value of x: |x|.
 
 2. **abs**
-```assembly
-int _abs(int a);
-```
-Returns the absolute value of x: |x|.
+    ```assembly
+    int _abs(int a);
+    ```
+    Returns the absolute value of x: |x|.
 
 3. **fma**
-```assembly
-double fma(double a, double b, double c);
-```
-Returns x*y+z.
+    ```assembly
+    double fma(double a, double b, double c);
+    ```
+    Returns x*y+z.
 
 ## Detailed compilation steps
 1. Assemble the NASM code:
