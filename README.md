@@ -41,6 +41,26 @@ This repository contains assembly code implementations of basic Math functions f
     ```
     Returns the binary (base-2) logarithm of x.
 
+### Power functions
+
+1. **pow**
+    ```assembly
+    int _pow(int a, int b);
+    ```
+    Returns base raised to the power exponent.
+
+2. **sqrt**
+    ```assembly
+    int _sqrt(int a);
+    ```
+    Returns the square root of x.
+
+3. **cbrt**
+    ```assembly
+    int _cbrt(int a);
+    ```
+    Returns the cubic root of x.
+
 ### Trigonometric functions
 1. **cos_function**
     ```assembly
